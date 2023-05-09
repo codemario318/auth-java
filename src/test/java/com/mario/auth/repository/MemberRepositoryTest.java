@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
-
 @SpringBootTest()
 @Transactional
 class MemberRepositoryTest {
@@ -17,12 +15,12 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("회원가입 성공")
-    void testSignUpSuccessMember() throws Exception {
+    void testSignUpSuccessMember() {
         String name = "mario";
         String email = "codemario318@gmail.com";
         String password = "password";
 
-        Member member = new Member(name, email, password);
+        Member member = new Member(email, password, name);
 
         Member savedMember = memberRepository.save(member);
         Member foundMember = memberRepository.findById(savedMember.getId()).orElseThrow();

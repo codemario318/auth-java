@@ -2,8 +2,10 @@ package com.mario.auth.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Getter
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +20,9 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    public Member() {}
-
-    public Member(String name, String email, String password) {
+    public Member(String email, String password, String name) {
         this.email = email;
-        this.name = name;
         this.password = password;
+        this.name = name;
     }
 }
