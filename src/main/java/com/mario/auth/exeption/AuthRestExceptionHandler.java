@@ -15,4 +15,8 @@ public class AuthRestExceptionHandler {
         // TODO: 관제 처리 추가
         return new ResponseEntity<>(errorResponse, status);
     }
+    @ExceptionHandler(EmailDuplicateException.class)
+    public ResponseEntity<ErrorResponse> handleEmailDuplicateException(EmailDuplicateException exception) {
+        return new ResponseEntity<>(exception.getErrorResponse(), exception.getStatus());
+    }
 }

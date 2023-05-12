@@ -2,6 +2,7 @@ package com.mario.auth.service;
 
 import com.mario.auth.domain.Member;
 import com.mario.auth.dto.SignupRequest;
+import com.mario.auth.exeption.EmailDuplicateException;
 import com.mario.auth.repository.MemberRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public void signup(@Valid SignupRequest signupRequest) throws IllegalArgumentException {
+    public void signup(@Valid SignupRequest signupRequest) throws EmailDuplicateException {
         String name = signupRequest.getName();
         String email = signupRequest.getEmail();
         String password = signupRequest.getPassword();
@@ -24,7 +25,7 @@ public class MemberService {
         Boolean isExists = memberRepository.existsByEmail(email);
 
         if (isExists.equals(Boolean.TRUE)) {
-            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+            throw new EmailDuplicateException();
         }
 
         Member member = new Member(email, password, name);
